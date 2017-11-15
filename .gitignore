@@ -3,5 +3,3 @@ data/ingests/
 data/storage/
 *.properties
 !sampleOrg.properties
-docker-configs/sfdc_data
-!docker-configs/sfdc_data/.hello
