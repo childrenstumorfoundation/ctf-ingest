@@ -33,7 +33,8 @@ services:
     environment: ['POSTGRES_PASSWORD=${PGDATA_PASSWORD}']
     restart: always
     ports: ['5432:5432']
-    volumes: ['./data/storage/pg:/var/lib/postgresql/data']
+    volumes:
+      - ./data/storage/pg:/var/lib/postgresql/data
 
   jupyter:
     build: ./docker-configs/notebook/
@@ -45,20 +46,21 @@ services:
 
   ######## Superset #######
   redis:
-    image: redis
+    image: redis:4.0
     restart: always
     # volumes:
     #   - redis:/data
   postgres:
-    image: postgres
+    image: postgres:10
     restart: always
     environment:
       POSTGRES_DB: superset
       POSTGRES_PASSWORD: superset
       POSTGRES_USER: superset
-      volumes: ['./data/storage/pg:/var/lib/postgresql/data']
+    volumes:
+      - ./data/storage/pg_superset:/var/lib/postgresql/data
   superset:
-    image: amancevice/superset
+    image: amancevice/superset:0.21.1
     restart: always
     depends_on:
       - postgres
